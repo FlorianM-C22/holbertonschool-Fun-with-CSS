@@ -1,0 +1,151 @@
+/* Variables for reusability */
+:root {
+  --menu-size: 80px;
+  --menu-border-radius: 50%;
+  --menu-background: #dd0031;
+  --menu-speed: 0.5s;
+  --menu-item-delay: 0.05s;
+}
+
+/* Base menu styles */
+.menu {
+  position: relative;
+  width: var(--menu-size);
+  height: var(--menu-size);
+  font-size: 20px;
+  margin: 40px auto;
+  z-index: 1;
+}
+
+.menu-item,
+.menu-open-button {
+  background: var(--menu-background);
+  border-radius: var(--menu-border-radius);
+  width: var(--menu-size);
+  height: var(--menu-size);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  text-align: center;
+  line-height: var(--menu-size);
+  transform: translate3d(0, 0, 0);
+  transition: transform ease-out var(--menu-speed), background var(--menu-speed),
+    color var(--menu-speed);
+  cursor: pointer;
+  z-index: 2;
+  border: 2px solid var(--menu-background);
+  text-decoration: none;
+}
+
+.menu-open-button {
+  z-index: 2;
+}
+
+/* Hamburger menu lines */
+.menu-line {
+  width: 25px;
+  height: 3px;
+  background: white;
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform var(--menu-speed), opacity var(--menu-speed),
+    background var(--menu-speed);
+}
+
+.menu-line-1 {
+  top: 35%;
+}
+.menu-line-2 {
+  top: 50%;
+}
+.menu-line-3 {
+  top: 65%;
+}
+
+/* Checkbox handling */
+.menu-open {
+  display: none;
+}
+
+/* Animation for burger to X */
+.menu-open:checked + .menu-open-button .menu-line-1 {
+  transform: translate(-50%, -50%) rotate(45deg);
+  top: 50%;
+}
+.menu-open:checked + .menu-open-button .menu-line-2 {
+  opacity: 0;
+}
+.menu-open:checked + .menu-open-button .menu-line-3 {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  top: 50%;
+}
+
+/* Initial state - all items stacked */
+.menu-item {
+  transform: translate3d(0, 0, 0) scale(0);
+  transition: all ease-out var(--menu-speed);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+/* Menu items transition delays for closing */
+.menu-item:nth-child(3) {
+  transition-delay: calc(5 * var(--menu-item-delay));
+}
+.menu-item:nth-child(4) {
+  transition-delay: calc(4 * var(--menu-item-delay));
+}
+.menu-item:nth-child(5) {
+  transition-delay: calc(3 * var(--menu-item-delay));
+}
+.menu-item:nth-child(6) {
+  transition-delay: calc(2 * var(--menu-item-delay));
+}
+.menu-item:nth-child(7) {
+  transition-delay: calc(1 * var(--menu-item-delay));
+}
+
+/* Menu open animation with different delays */
+.menu-open:checked ~ .menu-item {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  transition: all ease-out var(--menu-speed);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(3) {
+  transform: translate3d(0, 100px, 0);
+  transition-delay: calc(1 * var(--menu-item-delay));
+}
+.menu-open:checked ~ .menu-item:nth-child(4) {
+  transform: translate3d(0, 200px, 0);
+  transition-delay: calc(2 * var(--menu-item-delay));
+}
+.menu-open:checked ~ .menu-item:nth-child(5) {
+  transform: translate3d(0, 300px, 0);
+  transition-delay: calc(3 * var(--menu-item-delay));
+}
+.menu-open:checked ~ .menu-item:nth-child(6) {
+  transform: translate3d(0, 400px, 0);
+  transition-delay: calc(4 * var(--menu-item-delay));
+}
+.menu-open:checked ~ .menu-item:nth-child(7) {
+  transform: translate3d(0, 500px, 0);
+  transition-delay: calc(5 * var(--menu-item-delay));
+}
+
+/* Hover effects with color inversion */
+.menu-item:hover,
+.menu-open-button:hover {
+  background: white;
+  color: var(--menu-background);
+  border: 2px solid var(--menu-background);
+}
+
+.menu-open-button:hover .menu-line {
+  background: var(--menu-background);
+}
